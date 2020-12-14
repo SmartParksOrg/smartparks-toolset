@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Smart Parks Battery Calculator</title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<style type="text/css">
+		.bg-light {
+			background-color: #f8f9fa !important;
+		}
+	</style>
+</head>
+<body class="bg-light">
+<div class="container">
+	<div class="row">
+		<div class="col py-5 text-center">
+			<h2>Smart Parks Sensor Battery Calculator </h2>
+			<p class="lead">Some info about the tool.</p>
+		</div>
+		<form id="inputForm">
+			<h2>Sensor type</h2>
+			<div class="form-group">
+				<div class="col">
+					<label for="sensorType">What sensor type are you using?</label>
+					<select class="form-select" id="sensorType">
+						<option disabled selected value="null">please select a sensor</option>
+					</select>
+				</div>
+			</div>
+			<div id="showOnSensorType1" hidden>
+				<h4 class="pt-3">Sensor information</h4>
+				<div class="form-group">
+					<div class="col pt-2">
+						<label for="loraType">What is the selected Lora type?</label>
+						<select class="form-select" id="loraType">
+							<option>SF7</option>
+							<option>SF8</option>
+							<option>SF9</option>
+							<option selected value="SF10">SF10 (default)</option>
+							<option>SF11</option>
+							<option>SF12</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group col row">
+					<div class="col-12 pt-3">
+						<label for="portStatus">P_STATUS (12) - Status message interval in minutes.</label>
+						<label for="portStatusRange"></label>
+					</div>
+					<div class="col-6 col-md-2">
+						<input type="number" class="form-control" id="portStatus" placeholder="30" value="30">
+					</div>
+					<div class="col-6 col-md-2 order-md-last">
+						<button type="button" class="btn btn-warning w-100" id="resetPortStatus">Reset</button>
+					</div>
+					<div class="col-12 col-md-8">
+						<input type="range" class="form-control-range" min="0" max="720" value="30" step="1" id="portStatusRange" style="width: 100%">
+					</div>
+
+				</div>
+				<div class="form-group col row">
+					<div class="col-12 pt-3">
+						<label for="portGPS">P_GPS (1) - GPS message interval in minutes.</label>
+						<label for="portGPSRange"></label>
+					</div>
+					<div class="col-6 col-md-2">
+						<input type="number" class="form-control" id="portGPS" placeholder="30" value="30">
+					</div>
+					<div class="col-6 col-md-2 order-md-last">
+						<button type="button" class="btn btn-warning w-100" id="resetPortGPS">Reset</button>
+					</div>
+					<div class="col-12 col-md-8">
+						<input type="range" class="form-control-range" min="0" max="1440" value="30" step="1" id="portGPSRange" style="width: 100%">
+					</div>
+
+				</div>
+				<div class="form-group">
+					<div class="col pt-3">
+						<label for="GPSFixTimeSector">GPS Fix Time - What time does it take to get a gps fix? Use an adjusted time based on the GPS message interval or set a fixed time.</label>
+						<select class="form-select" id="GPSFixTimeSector">
+							<option selected value="ADJUSTED">ADJUSTED (default)</option>
+							<option>FIXED</option>
+						</select>
+					</div>
+					<div class="col row pt-1" id="GPSFixFixedTimeField" hidden>
+						<div class="col-12 pt-3">
+							<label for="GPSFixFixedTime">If the GPS fix time is fixed, give the fixed value here.</label>
+							<label for="GPSFixFixedTimeRange"></label>
+						</div>
+						<div class="col-6 col-md-2">
+							<input type="number" class="form-control" id="GPSFixFixedTime" placeholder="30" value="30">
+						</div>
+						<div class="col-6 col-md-2 order-md-last">
+							<button type="button" class="btn btn-warning w-100" id="resetGPSFixFixedTime">Reset</button>
+						</div>
+						<div class="col-12 col-md-8">
+							<input type="range" class="form-control-range w-100" min="1" max="200" value="30" step="1" id="GPSFixFixedTimeRange">
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</form>
+		<div id="showOnSensorType2" hidden>
+			<h2 class="pt-3">Calculation</h2>
+			<h4>Input</h4>
+			<div class="form-group col">
+				<div class="row">
+					<div class="col-6">
+						<label for="batteryMAH">Total battery mAh</label>
+						<input type="number" class="form-control" id="batteryMAH" readonly>
+					</div>
+					<div class="col-6">
+						<label for="batteryV">Battery Voltage</label>
+						<input type="number" class="form-control" id="batteryV" readonly>
+					</div>
+				</div>
+			</div>
+			<h4>Output / Calculated</h4>
+			<div class="form-group col">
+				<div class="col">
+					<label for="consumptionPH">Power consumption per hour in mAh</label>
+					<input type="number" class="form-control" id="consumptionPH" readonly>
+				</div>
+				<h5 class="pt-3">Theoretical max battery life</h5>
+				<div class="row">
+					<div class="col-6 col-md-3">
+						<label for="tMaxLifeHours">in hours</label>
+						<input type="number" class="form-control" id="tMaxLifeHours" readonly>
+					</div>
+					<div class="col-6 col-md-3">
+						<label for="tMaxLifeDays">in days</label>
+						<input type="number" class="form-control" id="tMaxLifeDays" readonly>
+					</div>
+					<div class="col-6 col-md-3">
+						<label for="tMaxLifeMonths">in months</label>
+						<input type="number" class="form-control" id="tMaxLifeMonths" readonly>
+					</div>
+					<div class="col-6 col-md-3">
+						<label for="tMaxLifeYears">in years</label>
+						<input type="number" class="form-control" id="tMaxLifeYears" readonly>
+					</div>
+				</div>
+				<h5 class="pt-3">Predicted battery life</h5>
+				<div class="row">
+					<div class="col-6 col-md-3">
+						<label for="pLifeHours">in hours</label>
+						<input type="number" class="form-control" id="pLifeHours" readonly>
+					</div>
+					<div class="col-6 col-md-3">
+						<label for="pLifeDays">in days</label>
+						<input type="number" class="form-control" id="pLifeDays" readonly>
+					</div>
+					<div class="col-6 col-md-3">
+						<label for="pLifeMonths">in months</label>
+						<input type="number" class="form-control" id="pLifeMonths" readonly>
+					</div>
+					<div class="col-6 col-md-3">
+						<label for="pLifeYears">in years</label>
+						<input type="number" class="form-control" id="pLifeYears" readonly>
+					</div>
+				</div>
+			</div>
+			<div class="col-12 py-4">
+				<div class="alert alert-danger" role="alert">
+					Caution: Real battery consumption may vary
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="js/calculator.js"></script>
+</body>
+</html>

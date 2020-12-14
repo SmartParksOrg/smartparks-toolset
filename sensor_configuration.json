@@ -1,0 +1,37 @@
+{
+    "sp_l_01": {
+        "sensorName": "Asset Tracker",
+        "batteryType": "18650",
+        "batteryRechargeable": true,
+        "batteryCapacity": 2800,
+        "batteryCount": 1
+    },
+    "sp_r_02": {
+        "sensorName": "Rhino Tracker",
+        "batteryType": "LS14250",
+        "batteryRechargeable": false,
+        "batteryCapacity": 840,
+        "batteryCount": 1
+    },
+    "sp_l_10": {
+        "sensorName": "Lion Tracker",
+        "batteryType": "LS14250",
+        "batteryRechargeable": false,
+        "batteryCapacity": 1200,
+        "batteryCount": 5
+    },
+    "sp_l_09": {
+        "sensorName": "Cheetah Tracker",
+        "batteryType": "LS14250",
+        "batteryRechargeable": false,
+        "batteryCapacity": 1200,
+        "batteryCount": 3
+    },
+    "sp_e_01": {
+        "sensorName": "Elephant Tracker",
+        "batteryType": "LS17500",
+        "batteryRechargeable": false,
+        "batteryCapacity": 3600,
+        "batteryCount": 6
+    }
+}
