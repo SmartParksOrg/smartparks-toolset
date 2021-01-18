@@ -13,11 +13,44 @@
 	</style>
 </head>
 <body class="bg-light">
+
+<!---------------------------------------Do not include when exporting page - Internal navigation------------------------------------------>
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+	<div class="container">
+		<a class="navbar-brand" href="/">Smart Parks Toolset</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="/">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" href="/battery-calculator-bootstrap4.html">Battery Calculator - B4</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/battery-calculator-bootstrap3.html">Battery Calculator - B3</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/decode-encode-bootstrap4.html">Decoder & Encoder - B4</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-danger disabled" href="/decode-encode-bootstrap3.html">Decoder & Encoder - B3</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+<!--------------------------------------- END - Do not include when exporting page - Internal navigation------------------------------------------>
+
+
 <div class="container">
 	<div class="row">
 		<div class="col py-5 text-center">
 			<h2>Smart Parks Sensor Battery Calculator </h2>
-			<p class="lead">Some info about the tool.</p>
+			<p class="lead">This tool can be used to estimate the power consumption and battery life for our OpenCollar sensors. Please be aware that his is a model and can only be used as guidance for
+			                finding the most optimal settings and deployment strategies. In doubt, please consult Smart Parks directly.</p>
 		</div>
 		<form id="inputForm">
 			<h2>Sensor type</h2>

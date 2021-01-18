@@ -19,10 +19,23 @@
 	</style>
 </head>
 <body class="bg-light">
+
+
+<!---------------------------------------Do not include when exporting page - Internal navigation------------------------------------------>
+<nav class="navbar navbar-default navbar-dark bg-dark navbar-expand-lg">
+	<div class="container">
+		<a class="navbar-brand" href="/">Smart Parks Toolset</a>
+		<button class="btn btn-primary navbar-btn" onclick="window.history.back();">Back</button>
+	</div>
+</nav>
+<!--------------------------------------- END - Do not include when exporting page - Internal navigation------------------------------------------>
+
+
 <div class="container">
 	<div class="py-5 text-center">
 		<h2>Smart Parks Sensor Battery Calculator </h2>
-		<p class="lead">Some info about the tool.</p>
+		<p class="lead">This tool can be used to estimate the power consumption and battery life for our OpenCollar sensors. Please be aware that his is a model and can only be used as guidance for
+		                finding the most optimal settings and deployment strategies. In doubt, please consult Smart Parks directly.</p>
 	</div>
 	<form id="inputForm" class="row">
 		<h2 class="col-xs-12">Sensor type</h2>
