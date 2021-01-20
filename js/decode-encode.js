@@ -5,15 +5,21 @@ window.addEventListener('load', () => {
 const runApp = async () => {
   let inputForm = document.getElementById('inputForm');
   inputForm.addEventListener('change', () => {
-    // let inputValue = document.getElementById().value;
-    // let port = document.getElementById().value;
 
+    /*
     let base64Value = 'yhmyg55GDwBDPDMjAABpJIhf';
     let hexString = "ca19b2839e460f00433c332300006924885f";
+     */
 
-    let test = new Uint8Array(parseHexStringToBytesArray(base64ToHexString(base64Value)));
+    let payloadIn = document.getElementById('payloadIn').value;
+    setTranslatedPayload(payloadIn);
+    let hexPayloadArray = hexFromBaseOrHex(payloadIn);
+    let hexPayload = hexPayloadArray[0];
+    document.getElementById('payloadInType').innerText = "Recognized type: " + hexPayloadArray[1];
+    let portIn = document.getElementById('portIn').value;
 
-    document.getElementById('resultSet').value = JSON.stringify(runDecoder(1, base64Value));
+    let decodedJson = runDecoder(portIn, hexPayload);
+    document.getElementById('resultSet').value = JSON.stringify(decodedJson, null, 2);
   });
 }
 
@@ -21,22 +27,66 @@ function runDecoder(port, payload) {
   let decoder = document.getElementById('decoder').value;
 
   return Function(
-    "let bytes = new Uint8Array(parseHexStringToBytesArray(base64ToHexString('" + payload + "')));" +
+    "let bytes = new Uint8Array(parseHexStringToBytesArray('" + payload + "'));" +
     decoder +
     "return Decode(" + port + ", bytes );"
   )();
 }
 
-function dec2bin(dec) {
-  return (dec >>> 0).toString(2);
+function f() {
+
 }
 
-function hexToBytes(hex) {
-  let bytes = [];
-  let c = 0;
-  for (; c < hex.length; c += 2)
-    bytes.push(parseInt(hex.substr(c, 2), 16));
-  return bytes;
+/*
+ input: raw payload
+ */
+function setTranslatedPayload(payload) {
+  let type = hexFromBaseOrHex(payload)[1];
+  let translated = '';
+  let translatedType = '';
+  if (type === 'hexadecimal') {
+    translatedType = 'base 64';
+    translated = hexToBase64String(payload);
+  } else if (type === 'base 64') {
+    translatedType = 'hexadecimal';
+    translated = base64ToHexString(payload);
+  }
+
+  document.getElementById('translatedPayloadInType').innerText = translatedType;
+  document.getElementById('translatedPayloadIn').value = translated;
+}
+
+function copyText(id) {
+  /* Get the text field */
+  let copyText = document.getElementById(id);
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+}
+
+// resolve input string to hex, parses array with result and input datatype
+function hexFromBaseOrHex(str) {
+  if (isHex(str)) {
+    return [str.toUpperCase(), 'hexadecimal'];
+  } else if (isBase64(str)) {
+    return [base64ToHexString(str), 'base 64'];
+  }
+  return [null, 'invalid'];
+}
+
+// validate if string is hex
+function isHex(str) {
+  return /^[a-fA-F0-9]+$/.test(str);
+}
+
+// validate if string is base64,
+// !!!! also has false positives for hex !!!!
+function isBase64(str) {
+  return str.length % 4 === 0 && /^[A-Za-z0-9+/]+[=]{0,3}$/.test(str);
 }
 
 // hex string to bytes array
@@ -65,11 +115,11 @@ function parseBytesArrayToHexString(arr) {
     result += str;
   }
 
-  return result;
+  return result.toUpperCase();
 }
 
 // Hex to Base64
-function hexToBase64(str) {
+function hexToBase64String(str) {
   return btoa(String.fromCharCode.apply(null,
     str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" "))
   );
@@ -85,150 +135,6 @@ function base64ToHexString(str) {
     if (tmp.length === 1) tmp = "0" + tmp;
     hex[hex.length] = tmp;
   }
-  return hex.join('');
+  return hex.join('').toUpperCase();
   // return hex;
-}
-
-
-function Decode(fPort, bytes) {
-  console.log(bytes[0]);
-
-  let decoded = {};
-  let cnt = 0;
-  let resetCause_dict = {
-    0: "POWERON",
-    1: "EXTERNAL",
-    2: "SOFTWARE",
-    3: "WATCHDOG",
-    4: "FIREWALL",
-    5: "OTHER",
-    6: "STANDBY"
-  };
-
-
-  // settings
-  if (fPort === 3) {
-    decoded.system_status_interval = (bytes[1] << 8) | bytes[0];
-    decoded.system_functions = {};//bytes[2];
-    decoded.system_functions.gps_periodic = ((bytes[2] >> 0) & 0x01) ? 1 : 0;
-    decoded.system_functions.gps_triggered = ((bytes[2] >> 1) & 0x01) ? 1 : 0;
-    decoded.system_functions.gps_hot_fix = ((bytes[2] >> 2) & 0x01) ? 1 : 0;
-    decoded.system_functions.accelerometer_enabled = ((bytes[2] >> 3) & 0x01) ? 1 : 0;
-    decoded.system_functions.light_enabled = ((bytes[2] >> 4) & 0x01) ? 1 : 0;
-    decoded.system_functions.temperature_enabled = ((bytes[2] >> 5) & 0x01) ? 1 : 0;
-    decoded.system_functions.humidity_enabled = ((bytes[2] >> 6) & 0x01) ? 1 : 0;
-    decoded.system_functions.charging_enabled = ((bytes[2] >> 7) & 0x01) ? 1 : 0;
-
-    decoded.lorawan_datarate_adr = {};//bytes[3];
-    decoded.lorawan_datarate_adr.datarate = bytes[3] & 0x0f;
-    decoded.lorawan_datarate_adr.confirmed_uplink = ((bytes[3] >> 6) & 0x01) ? 1 : 0;
-    decoded.lorawan_datarate_adr.adr = ((bytes[3] >> 7) & 0x01) ? 1 : 0;
-
-    decoded.gps_periodic_interval = (bytes[5] << 8) | bytes[4];
-    decoded.gps_triggered_interval = (bytes[7] << 8) | bytes[6];
-    decoded.gps_triggered_threshold = bytes[8];
-    decoded.gps_triggered_duration = bytes[9];
-    decoded.gps_cold_fix_timeout = (bytes[11] << 8) | bytes[10];
-    decoded.gps_hot_fix_timeout = (bytes[13] << 8) | bytes[12];
-    decoded.gps_min_fix_time = bytes[14];
-    decoded.gps_min_ehpe = bytes[15];
-    decoded.gps_hot_fix_retry = bytes[16];
-    decoded.gps_cold_fix_retry = bytes[17];
-    decoded.gps_fail_retry = bytes[18];
-    decoded.gps_settings = {};//bytes[19];
-    decoded.gps_settings.d3_fix = ((bytes[19] >> 0) & 0x01) ? 1 : 0;
-    decoded.gps_settings.fail_backoff = ((bytes[19] >> 1) & 0x01) ? 1 : 0;
-    decoded.gps_settings.hot_fix = ((bytes[19] >> 2) & 0x01) ? 1 : 0;
-    decoded.gps_settings.fully_resolved = ((bytes[19] >> 3) & 0x01) ? 1 : 0;
-    decoded.system_voltage_interval = bytes[20];
-    decoded.gps_charge_min = bytes[21] * 10 + 2500;
-    decoded.system_charge_min = bytes[22] * 10 + 2500;
-    decoded.system_charge_max = bytes[23] * 10 + 2500;
-    decoded.system_input_charge_min = (bytes[25] << 8) | bytes[24];
-    decoded.pulse_threshold = bytes[26];
-    decoded.pulse_on_timeout = bytes[27];
-    decoded.pulse_min_interval = (bytes[29] << 8) | bytes[28];
-    decoded.gps_accel_z_threshold = ((bytes[31] << 8) | bytes[30]) - 2000;
-    decoded.fw_version = (bytes[33] << 8) | bytes[32];
-  } else if (fPort === 12) {
-    decoded.resetCause = resetCause_dict[bytes[0] & 0x07];
-    decoded.system_state_timeout = bytes[0] >> 3;
-    decoded.battery = bytes[1] * 10 + 2500; // result in mV
-    decoded.temperature = get_num(bytes[2], -20, 80, 8, 1);
-    decoded.system_functions_errors = {};//bytes[5];
-    decoded.system_functions_errors.gps_periodic_error = ((bytes[3] >> 0) & 0x01) ? 1 : 0;
-    decoded.system_functions_errors.gps_triggered_error = ((bytes[3] >> 1) & 0x01) ? 1 : 0;
-    decoded.system_functions_errors.gps_fix_error = ((bytes[3] >> 2) & 0x01) ? 1 : 0;
-    decoded.system_functions_errors.accelerometer_error = ((bytes[3] >> 3) & 0x01) ? 1 : 0;
-    decoded.system_functions_errors.light_error = ((bytes[3] >> 4) & 0x01) ? 1 : 0;
-    decoded.system_functions_errors.charging_status = (bytes[3] >> 5) & 0x07;
-    decoded.latitude = ((bytes[4] << 16) >>> 0) + ((bytes[5] << 8) >>> 0) + bytes[6];
-    decoded.longitude = ((bytes[7] << 16) >>> 0) + ((bytes[8] << 8) >>> 0) + bytes[9];
-    if (decoded.latitude !== 0 && decoded.longitude !== 0) {
-      decoded.latitude = (decoded.latitude / 16777215.0 * 180) - 90;
-      decoded.longitude = (decoded.longitude / 16777215.0 * 360) - 180;
-      decoded.latitude = Math.round(decoded.latitude * 100000) / 100000;
-      decoded.longitude = Math.round(decoded.longitude * 100000) / 100000;
-    }
-    decoded.gps_resend = bytes[10];
-    decoded.accelx = get_num(bytes[11], -2000, 2000, 8, 1);
-    decoded.accely = get_num(bytes[12], -2000, 2000, 8, 1);
-    decoded.accelz = get_num(bytes[13], -2000, 2000, 8, 1);
-    decoded.battery_low = (bytes[15] << 8) | bytes[14]; // result in mV
-    decoded.gps_on_time_total = (bytes[17] << 8) | bytes[16];
-    decoded.gps_time = bytes[18] | (bytes[19] << 8) | (bytes[20] << 16) | (bytes[21] << 24);
-    let d = new Date(decoded.gps_time * 1000);
-    decoded.gps_time_decoded = d.toLocaleString();
-    decoded.pulse_counter = bytes[22];
-    decoded.pulse_energy = (bytes[23] << 4) | (bytes[24] | (bytes[25] << 8) >> 12);
-    decoded.pulse_voltage = (bytes[24] | (bytes[25] << 8)) & 0x0fff;
-    decoded.voltage_fence_v = decoded.pulse_voltage * 8;
-  } else if (fPort === 1) {
-    decoded.latitude = ((bytes[cnt++] << 16) >>> 0) + ((bytes[cnt++] << 8) >>> 0) + bytes[cnt++];
-    decoded.longitude = ((bytes[cnt++] << 16) >>> 0) + ((bytes[cnt++] << 8) >>> 0) + bytes[cnt++];
-    if (decoded.latitude !== 0 && decoded.longitude !== 0) {
-      decoded.latitude = (decoded.latitude / 16777215.0 * 180) - 90;
-      decoded.longitude = (decoded.longitude / 16777215.0 * 360) - 180;
-      decoded.latitude = Math.round(decoded.latitude * 100000) / 100000;
-      decoded.longitude = Math.round(decoded.longitude * 100000) / 100000;
-    }
-    decoded.alt = bytes[cnt++] | (bytes[cnt++] << 8);
-    decoded.satellites = (bytes[cnt] >> 4);
-    decoded.hdop = (bytes[cnt++] & 0x0f);
-    decoded.time_to_fix = bytes[cnt++];
-    decoded.epe = bytes[cnt++];
-    decoded.snr = bytes[cnt++];
-    decoded.lux = bytes[cnt++];
-    decoded.motion = bytes[cnt++];
-    decoded.time = bytes[cnt++] | (bytes[cnt++] << 8) | (bytes[cnt++] << 16) | (bytes[cnt++] << 24);
-    let d = new Date(decoded.time * 1000);
-    decoded.time_decoded = d.toLocaleString();
-  } else if (fPort === 11) {
-    let locations = [];
-    for (i = 0; i < 5; i++) {
-      let location = {}
-      location.latitude = ((bytes[cnt++] << 16) >>> 0) + ((bytes[cnt++] << 8) >>> 0) + bytes[cnt++];
-      location.longitude = ((bytes[cnt++] << 16) >>> 0) + ((bytes[cnt++] << 8) >>> 0) + bytes[cnt++];
-      if (location.latitude !== 0 && location.longitude !== 0) {
-        location.latitude = (location.latitude / 16777215.0 * 180) - 90;
-        location.longitude = (location.longitude / 16777215.0 * 360) - 180;
-        location.latitude = Math.round(location.latitude * 100000) / 100000;
-        location.longitude = Math.round(location.longitude * 100000) / 100000;
-      }
-      location.time = bytes[cnt++] | (bytes[cnt++] << 8) | (bytes[cnt++] << 16) | (bytes[cnt++] << 24);
-      let d = new Date(location.time * 1000);
-      location.time_decoded = d.toLocaleString();
-      locations.push(location);
-    }
-    decoded.locations = JSON.stringify(locations);
-  } else if (fPort === 30) {
-    let vswr = [];
-    for (i = 0; i < bytes.length; i++) {
-      let value = (bytes[i]);
-      vswr.push(value);
-    }
-    decoded.vswr = vswr;
-  }
-
-  return decoded;
 }
