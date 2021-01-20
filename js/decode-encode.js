@@ -19,7 +19,8 @@ const runApp = async () => {
     let portIn = document.getElementById('portIn').value;
 
     let decodedJson = runDecoder(portIn, hexPayload);
-    document.getElementById('resultSet').value = JSON.stringify(decodedJson, null, 2);
+    let stringifiedJson = JSON.stringify(decodedJson, undefined, 4);
+    setResultset(stringifiedJson);
   });
 }
 
@@ -31,10 +32,6 @@ function runDecoder(port, payload) {
     decoder +
     "return Decode(" + port + ", bytes );"
   )();
-}
-
-function f() {
-
 }
 
 /*
@@ -60,12 +57,20 @@ function copyText(id) {
   /* Get the text field */
   let copyText = document.getElementById(id);
 
+  if (id === 'resultSetCopy'){
+    copyText.style.visibility = "visible";
+  }
+
   /* Select the text field */
   copyText.select();
   copyText.setSelectionRange(0, 99999); /* For mobile devices */
 
   /* Copy the text inside the text field */
   document.execCommand("copy");
+
+    if (id === 'resultSetCopy'){
+        copyText.style.visibility = "hidden";
+  }
 }
 
 // resolve input string to hex, parses array with result and input datatype
@@ -137,4 +142,29 @@ function base64ToHexString(str) {
   }
   return hex.join('').toUpperCase();
   // return hex;
+}
+
+
+function setResultset(inp) {
+  document.getElementById('resultSet').innerHTML = syntaxHighlight(inp);
+  document.getElementById('resultSetCopy').value = inp;
+}
+
+function syntaxHighlight(json) {
+  json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+    var cls = 'number';
+    if (/^"/.test(match)) {
+      if (/:$/.test(match)) {
+        cls = 'key';
+      } else {
+        cls = 'string';
+      }
+    } else if (/true|false/.test(match)) {
+      cls = 'boolean';
+    } else if (/null/.test(match)) {
+      cls = 'null';
+    }
+    return '<span class="' + cls + '">' + match + '</span>';
+  });
 }

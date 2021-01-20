@@ -17,7 +17,7 @@ function get_num(x, min, max, precision, round) {
 
 // TTN decoder function, using the ChripStack decoder
 function Decoder(bytes) {
-  Decode(port, bytes)
+  return Decode(port, bytes);
 }
 
 // ChirpStack decode function

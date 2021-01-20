@@ -17,13 +17,17 @@ function get_num(x, min, max, precision, round) {
 
 // TTN decoder function, using the ChripStack decoder
 function Decoder(bytes) {
-  // TODO: add default variable for variables.fence_calibration_factor
-  Decode(port, bytes, null)
+  return Decode(port, bytes, null);
 }
 
 // ChirpStack decode function
 function Decode(fPort, bytes, variables) {
-
+  if (!variables) {
+    variables = {};
+  }
+  if (!variables.fence_calibration_factor) {
+    variables.fence_calibration_factor = 8;
+  }
   var decoded = {};
   var cnt = 0;
   var resetCause_dict = {
