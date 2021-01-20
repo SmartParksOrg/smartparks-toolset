@@ -20,7 +20,7 @@ const runApp = async () => {
 
     let decodedJson = runDecoder(portIn, hexPayload);
     let stringifiedJson = JSON.stringify(decodedJson, undefined, 4);
-    setResultset(stringifiedJson);
+    setResultSet(stringifiedJson);
   });
 }
 
@@ -144,8 +144,7 @@ function base64ToHexString(str) {
   // return hex;
 }
 
-
-function setResultset(inp) {
+function setResultSet(inp) {
   document.getElementById('resultSet').innerHTML = syntaxHighlight(inp);
   document.getElementById('resultSetCopy').value = inp;
 }
