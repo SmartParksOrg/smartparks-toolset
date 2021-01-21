@@ -1,4 +1,5 @@
 const decoderBaseUrl = 'assets/Decoders/';
+let updateDecoder;
 
 window.addEventListener('load', () => {
   runApp();
@@ -14,7 +15,7 @@ const runApp = async () => {
 
   let inputForm = document.getElementById('inputForm');
   inputForm.addEventListener('change', () => {
-    setDecoder();
+
 
     /*
     let base64Value = 'yhmyg55GDwBDPDMjAABpJIhf';
@@ -28,6 +29,7 @@ const runApp = async () => {
     document.getElementById('payloadInType').innerText = "Recognized type: " + hexPayloadArray[1];
     let portIn = document.getElementById('portIn').value;
 
+    setDecoder();
     let decodedJson = runDecoder(portIn, hexPayload);
     let stringifiedJson = JSON.stringify(decodedJson, undefined, 4);
     setResultSet(stringifiedJson);
@@ -194,6 +196,7 @@ function selectPreDefinedPort() {
   for (let i = 0; i < buttonCount; i++) {
     document.getElementsByClassName('preDefinePort').item(i).addEventListener('click', () => {
       document.getElementById('portIn').value = document.getElementsByClassName('preDefinePort').item(i).value;
+      document.getElementById('inputForm').dispatchEvent(new Event('change'));
     });
   }
 }
@@ -201,8 +204,12 @@ function selectPreDefinedPort() {
 async function setDecoder() {
   let val = document.getElementById('decoderList').value;
   if (val !== 'custom') {
-    document.getElementById('decoder').value = await loadJs(decoderBaseUrl + document.getElementById('decoderList').value);
-    document.getElementById('inputForm').dispatchEvent(new Event('change'));
+    if (updateDecoder !== val) {
+      let js = await loadJs(decoderBaseUrl + document.getElementById('decoderList').value)
+      document.getElementById('decoder').value = js;
+      updateDecoder = val;
+      document.getElementById('inputForm').dispatchEvent(new Event('change'));
+    }
   }
 }
 
