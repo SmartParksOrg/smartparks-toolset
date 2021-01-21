@@ -1,10 +1,20 @@
+const decoderBaseUrl = 'assets/Decoders/';
+
 window.addEventListener('load', () => {
   runApp();
 })
 
 const runApp = async () => {
+  // gui setup
+  selectPreDefinedPort();
+  // load decoder config
+  let decoderList = await loadJSON(decoderBaseUrl + 'decoders.json');
+  fillDecoderList(decoderList);
+
+
   let inputForm = document.getElementById('inputForm');
   inputForm.addEventListener('change', () => {
+    setDecoder();
 
     /*
     let base64Value = 'yhmyg55GDwBDPDMjAABpJIhf';
@@ -27,11 +37,22 @@ const runApp = async () => {
 function runDecoder(port, payload) {
   let decoder = document.getElementById('decoder').value;
 
-  return Function(
-    "let bytes = new Uint8Array(parseHexStringToBytesArray('" + payload + "'));" +
-    decoder +
-    "return Decode(" + port + ", bytes );"
-  )();
+  if (decoder.length === 0) {
+    return "No decoder selected yet."
+  }
+  let resultSet = "Are you sure everything is OK? Your decoder is not defined yet or invalid.";
+  try {
+    resultSet = Function(
+      "let bytes = new Uint8Array(parseHexStringToBytesArray('" + payload + "'));" +
+      decoder +
+      "return Decode(" + port + ", bytes );"
+    )();
+  } catch (err) {
+    resultSet = 'Error in decoder : ' + err;
+
+    //document.getElementById("demo").innerHTML = err.message;
+  }
+  return resultSet;
 }
 
 /*
@@ -57,7 +78,7 @@ function copyText(id) {
   /* Get the text field */
   let copyText = document.getElementById(id);
 
-  if (id === 'resultSetCopy'){
+  if (id === 'resultSetCopy') {
     copyText.style.visibility = "visible";
   }
 
@@ -68,8 +89,8 @@ function copyText(id) {
   /* Copy the text inside the text field */
   document.execCommand("copy");
 
-    if (id === 'resultSetCopy'){
-        copyText.style.visibility = "hidden";
+  if (id === 'resultSetCopy') {
+    copyText.style.visibility = "hidden";
   }
 }
 
@@ -152,7 +173,7 @@ function setResultSet(inp) {
 function syntaxHighlight(json) {
   json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-    var cls = 'number';
+    let cls = 'number';
     if (/^"/.test(match)) {
       if (/:$/.test(match)) {
         cls = 'key';
@@ -165,5 +186,62 @@ function syntaxHighlight(json) {
       cls = 'null';
     }
     return '<span class="' + cls + '">' + match + '</span>';
+  });
+}
+
+function selectPreDefinedPort() {
+  let buttonCount = document.getElementsByClassName('preDefinePort').length;
+  for (let i = 0; i < buttonCount; i++) {
+    document.getElementsByClassName('preDefinePort').item(i).addEventListener('click', () => {
+      document.getElementById('portIn').value = document.getElementsByClassName('preDefinePort').item(i).value;
+    });
+  }
+}
+
+async function setDecoder() {
+  let val = document.getElementById('decoderList').value;
+  if (val !== 'custom') {
+    document.getElementById('decoder').value = await loadJs(decoderBaseUrl + document.getElementById('decoderList').value);
+    document.getElementById('inputForm').dispatchEvent(new Event('change'));
+  }
+}
+
+function fillDecoderList(decoderList) {
+  let select = document.getElementById('decoderList')
+  for (let [key, value] of Object.entries(decoderList)) {
+    let option = document.createElement('option');
+    option.text = key;
+    option.value = value;
+    select.options.add(option);
+  }
+}
+
+function loadJSON(url) {
+  return new Promise((resolve) => {
+    const xObj = new XMLHttpRequest();
+    xObj.overrideMimeType("application/json");
+    xObj.open('GET', url, true);
+    xObj.onreadystatechange = function () {
+      if (xObj.readyState === 4 && xObj.status === 200) {
+        // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+        resolve(JSON.parse(xObj.responseText));
+      }
+    };
+    xObj.send(null);
+  });
+}
+
+function loadJs(url) {
+  return new Promise((resolve) => {
+    const xObj = new XMLHttpRequest();
+    xObj.overrideMimeType("application/text");
+    xObj.open('GET', url, true);
+    xObj.onreadystatechange = function () {
+      if (xObj.readyState === 4 && xObj.status === 200) {
+        // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+        resolve(xObj.responseText);
+      }
+    };
+    xObj.send(null);
   });
 }

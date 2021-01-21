@@ -1,0 +1,16 @@
+{
+    "Dragino LGT 92 (v1)": "d_dragino_lgt92_v1.js",
+    "ESP32 paxcounter (v1)": "d_esp32_paxcounter_v1.js",
+    "Globalsat lt100 (v1)": "d_globalsat_lt100_v1.js",
+    "HP fence (v2)": "d_HP_fence_v2.js",
+    "HP GPS (v1)": "d_HP_GPS_v1.js",
+    "OpenCollar fence (v2)": "d_opencollar_fence_v2.js",
+    "OpenCollar Lion Tracker (legacy)": "d_opencollar_lion_tracker_legacy.js",
+    "OpenCollar Rhino Tracker (legacy)": "d_opencollar_rhino_tracker_legacy.js",
+    "OpenCollar Rhino Edge (v0.1)": "d_opencollar_rhinoedge_v0_1.js",
+    "OpenCollar Tracker (v1) ": "d_opencollar_tracker_v1.js",
+    "Rain Gauge 20mm": "d_rain_gauge_020mm.js",
+    "Rain Gauge 50mm": "d_rain_gauge_050mm.js",
+    "Sodaq one Tracker (v1)": "d_sodaq_one_tracker_v1.js",
+    "Tank Level": "d_tank_level.js"
+}

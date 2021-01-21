@@ -97,11 +97,19 @@
 					<button class="btn btn-outline-secondary" type="button" id="CopyTranslatedPayload" onclick="copyText('translatedPayloadIn')">Copy</button>
 				</div>
 			</div>
-
-			<div class="form-group mb-4">
-				<label for="portIn">Port</label>
-				<input type="number" class="form-control" id="portIn" placeholder="12" value="12">
+			<label for="portIn">Port</label>
+			<div class="btn-toolbar mb-4" role="toolbar" aria-label="Select port">
+				<div class="btn-group me-2" role="group" aria-label="Pre selected ports">
+					<button type="button" class="btn btn-outline-primary preDefinePort" value="1" data-bs-toggle="tooltip" data-bs-placement="top" title="SP: GPS message">1</button>
+					<button type="button" class="btn btn-outline-primary preDefinePort" value="3" data-bs-toggle="tooltip" data-bs-placement="top" title="SP: Settings">3</button>
+					<button type="button" class="btn btn-outline-primary preDefinePort" value="11" data-bs-toggle="tooltip" data-bs-placement="top" title="SP: Get GPS log">11</button>
+					<button type="button" class="btn btn-outline-primary preDefinePort" value="12" data-bs-toggle="tooltip" data-bs-placement="top" title="SP: Status message">12</button>
+				</div>
+				<div class="input-group">
+					<input type="number" class="form-control" id="portIn" placeholder="1" value="1">
+				</div>
 			</div>
+
 
 			<div class="row mb-4">
 				<label>Variables</label>
@@ -113,6 +121,14 @@
 				</div>
 			</div>
 
+			<div class="form-group mb-2">
+				<label for="decoderList">What decoder are you using?</label>
+				<select class="form-select" id="decoderList">
+					<option selected value="custom">Custom</option>
+
+				</select>
+			</div>
+
 			<div class="form-group mb-4">
 				<label for="decoder">Decoder</label>
 				<textarea class="form-control" id="decoder" placeholder="paste your decoder here" rows="15"></textarea>
@@ -121,7 +137,7 @@
 				<label for="resultSet">Result Set</label>
 				<div class="form-control">
 					<pre id="resultSet"></pre>
-					<div style="visibility: hidden; height: 0;" >
+					<div style="visibility: hidden; height: 0;">
 						<label for="resultSetCopy"></label>
 						<textarea class="form-control" id="resultSetCopy" rows="1"></textarea>
 					</div>
@@ -132,6 +148,13 @@
 	</div>
 </div>
 <script src="js/bootstrap.bundle.min.js"></script>
+<script>
+
+let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+	return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+</script>
 <script src="js/decode-encode.js"></script>
 </body>
 </html>
