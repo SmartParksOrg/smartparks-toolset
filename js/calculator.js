@@ -6,7 +6,7 @@ window.addEventListener('load', () => {
 
 const runCalculator = async () => {
 	// load sensor config
-	let sensorConfiguration = await loadJSON('sensor_configuration.json');
+	let sensorConfiguration = await loadJSON('assets/Calculator/sensor_configuration.json');
 	fillSensorTypeOptions(sensorConfiguration);
 
 	// constants
@@ -203,17 +203,4 @@ function fillSensorTypeOptions(configuration) {
 	}
 }
 
-function loadJSON(url) {
-	return new Promise((resolve) => {
-		const xObj = new XMLHttpRequest();
-		xObj.overrideMimeType("application/json");
-		xObj.open('GET', url, true);
-		xObj.onreadystatechange = function () {
-			if (xObj.readyState === 4 && xObj.status === 200) {
-				// Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-				resolve(JSON.parse(xObj.responseText));
-			}
-		};
-		xObj.send(null);
-	});
-}
+

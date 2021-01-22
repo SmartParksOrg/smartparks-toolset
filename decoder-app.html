@@ -5,38 +5,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Smart Parks Decoder & Encoder</title>
-	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<link rel="stylesheet" href="/css/shared.css">
 	<style type="text/css">
-		.bg-light {
-			background-color: #f8f9fa !important;
-		}
-
-		#resultSet {
-			/*outline: 1px solid #ccc;*/
-			padding: 5px;
-			margin: 5px;
-		}
-
-		.string {
-			color: green;
-		}
-
-		.number {
-			color: darkorange;
-		}
-
-		.boolean {
-			color: blue;
-		}
-
-		.null {
-			color: magenta;
-		}
-
-		.key {
-			color: red;
-		}
-
 	</style>
 </head>
 <body class="bg-light">
@@ -44,26 +15,23 @@
 <!---------------------------------------Do not include when exporting page - Internal navigation------------------------------------------>
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
 	<div class="container">
-		<a class="navbar-brand" href="index.html">Smart Parks Toolset</a>
+		<a class="navbar-brand" href="/index.html">Smart Parks Toolset</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link" href="index.html">Home</a>
+					<a class="nav-link" href="/index.html">Home</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="battery-calculator-bootstrap5.html">Battery Calculator - B5</a>
+					<a class="nav-link" href="/battery-calculator.html">Battery Calculator</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="battery-calculator-bootstrap3.html">Battery Calculator - B3</a>
+					<a class="nav-link active" href="/decoder-app.html">Decoder app</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="decode-encode-bootstrap5.html">Decoder & Encoder - B5</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link text-danger disabled" href="decode-encode-bootstrap3.html">Decoder & Encoder - B3</a>
+					<a class="nav-link" href="/encoder-app.html">Encoder app</a>
 				</li>
 			</ul>
 		</div>
@@ -75,7 +43,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col py-5 text-center">
-			<h2>Smart Parks Decoder & Encoder</h2>
+			<h2>Smart Parks Decoder app</h2>
 			<p class="lead">Some info about the tool.</p>
 		</div>
 	</div>
@@ -147,14 +115,14 @@
 		</form>
 	</div>
 </div>
-<script src="js/bootstrap.bundle.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
 <script>
-
 let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 	return new bootstrap.Tooltip(tooltipTriggerEl)
 })
 </script>
-<script src="js/decode-encode.js"></script>
+<script src="/js/shared.js"></script>
+<script src="/js/decoder.js"></script>
 </body>
 </html>

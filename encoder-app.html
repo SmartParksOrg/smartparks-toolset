@@ -4,14 +4,13 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Smart Parks Toolset</title>
+	<title>Smart Parks Decoder & Encoder</title>
 	<link rel="stylesheet" href="/css/bootstrap.css">
 	<link rel="stylesheet" href="/css/shared.css">
 	<style type="text/css">
 	</style>
 </head>
 <body class="bg-light">
-
 
 <!---------------------------------------Do not include when exporting page - Internal navigation------------------------------------------>
 <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
@@ -23,7 +22,7 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link active" href="/">Home</a>
+					<a class="nav-link" href="/">Home</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="/battery-calculator.html">Battery Calculator</a>
@@ -32,7 +31,7 @@
 					<a class="nav-link" href="/decoder-app.html">Decoder app</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/encoder-app.html">Encoder app</a>
+					<a class="nav-link active" href="/encoder-app.html">Encoder app</a>
 				</li>
 			</ul>
 		</div>
@@ -44,38 +43,23 @@
 <div class="container">
 	<div class="row">
 		<div class="col py-5 text-center">
-			<h2>Smart Parks Toolset</h2>
-			<p class="lead">Individual Tools</p>
-			<div class="list-group">
-
-				<a href="battery-calculator.html" class="list-group-item list-group-item-action">
-					<div class="d-flex w-100 justify-content-between">
-						<h5 class="mb-1">Battery Calculator</h5>
-						<small class="text-muted">Bootstrap 5.0</small>
-					</div>
-					<p class="mb-1">This tool can be used to estimate the power consumption and battery life for our OpenCollar sensors.</p>
-					<!--					<small>Done</small>-->
-				</a>
-				<a href="/decoder-app.html" class="list-group-item list-group-item-action">
-					<div class="d-flex w-100 justify-content-between">
-						<h5 class="mb-1">Decoder app</h5>
-						<small class="text-muted">Bootstrap 5.0</small>
-					</div>
-					<p class="mb-1">info....</p>
-					<small class="text-warning">In development</small>
-				</a>
-				<a href="/encoder-app.html" class="list-group-item list-group-item-action">
-					<div class="d-flex w-100 justify-content-between">
-						<h5 class="mb-1">Encoder app</h5>
-						<small class="text-muted">Bootstrap 5.0</small>
-					</div>
-					<p class="mb-1">info....</p>
-					<small class="text-danger">In Backlog</small>
-				</a>
-			</div>
+			<h2>Smart Parks Encoder app</h2>
+			<p class="lead">Some info about the tool.</p>
 		</div>
+	</div>
+	<div class="row">
+		<form id="inputForm">
+		</form>
 	</div>
 </div>
 <script src="/js/bootstrap.bundle.min.js"></script>
+<script>
+let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+	return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+</script>
+<script src="/js/shared.js"></script>
+<script src="/js/encoder.js"></script>
 </body>
 </html>
