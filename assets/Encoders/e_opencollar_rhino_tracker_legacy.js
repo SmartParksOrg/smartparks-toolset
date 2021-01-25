@@ -1,4 +1,10 @@
-function Encoder(fPort, obj,) {
+// TTN encoder function, using the ChripStack encoder
+function Encoder(object, port) {
+  return Encode(port, object);
+}
+
+// ChirpStack encode function
+function Encode(fPort, obj) {
   var bytes = [];
   //settings
   if (fPort === 3) {

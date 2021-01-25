@@ -1,4 +1,17 @@
 /*
+Put the selected port from a preDefinePort button into the portIn text field
+ */
+function selectPreDefinedPort() {
+  let buttonCount = document.getElementsByClassName('preDefinePort').length;
+  for (let i = 0; i < buttonCount; i++) {
+    document.getElementsByClassName('preDefinePort').item(i).addEventListener('click', () => {
+      document.getElementById('portIn').value = document.getElementsByClassName('preDefinePort').item(i).value;
+      document.getElementById('inputForm').dispatchEvent(new Event('change'));
+    });
+  }
+}
+
+/*
 Returns: Parsed Json loaded from URL
  */
 function loadJSON(url) {
@@ -126,16 +139,16 @@ bytes array to hex string
 function parseBytesArrayToHexString(arr) {
   let result = "";
   let z;
-
   for (let i = 0; i < arr.length; i++) {
     let str = arr[i].toString(16);
-
+    if (str.length === 1){
+      str = '0' + str;
+    }
     z = 2 - str.length + 1;
     str = Array(z).join("") + str;
 
     result += str;
   }
-
   return result.toUpperCase();
 }
 

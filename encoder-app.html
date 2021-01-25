@@ -4,7 +4,8 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Smart Parks Decoder & Encoder</title>
+	<title>Smart Parks Encoder app</title>
+	<link rel="shortcut icon" href="/assets/favicon32x32.jpg" type="image/x-icon">
 	<link rel="stylesheet" href="/css/bootstrap.css">
 	<link rel="stylesheet" href="/css/shared.css">
 	<style type="text/css">
@@ -43,12 +44,60 @@
 <div class="container">
 	<div class="row">
 		<div class="col py-5 text-center">
-			<h2>Smart Parks Encoder app</h2>
+			<h2>Encoder app</h2>
 			<p class="lead">Some info about the tool.</p>
 		</div>
 	</div>
 	<div class="row">
 		<form id="inputForm">
+			<div class="form-group mb-2">
+				<label for="predefinedJsonList">Do you want to select a default input json?</label>
+				<select class="form-select" id="predefinedJsonList">
+					<option selected value="custom">Custom</option>
+				</select>
+			</div>
+			<div class="form-group mb-4">
+				<label for="inputJson">Encoder input json</label>
+				<textarea class="form-control" id="inputJson" placeholder="paste your input json here" rows="15"></textarea>
+			</div>
+			<label for="portIn">Port</label>
+			<div class="btn-toolbar mb-4" role="toolbar" aria-label="Select port">
+				<div class="btn-group me-2" role="group" aria-label="Pre selected ports">
+					<button type="button" class="btn btn-outline-primary preDefinePort" value="3" data-bs-toggle="tooltip" data-bs-placement="top" title="SP: Settings">3</button>
+					<button type="button" class="btn btn-outline-primary preDefinePort" value="30" data-bs-toggle="tooltip" data-bs-placement="top" title="SP: Example">30</button>
+					<button type="button" class="btn btn-outline-primary preDefinePort" value="12" data-bs-toggle="tooltip" data-bs-placement="top" title="SP: Command">99</button>
+				</div>
+				<div class="input-group">
+					<input type="number" class="form-control" id="portIn" placeholder="3" value="3">
+				</div>
+			</div>
+
+			<div class="form-group mb-2">
+				<label for="encoderList">What encoder are you using?</label>
+				<select class="form-select" id="encoderList">
+					<option selected value="custom">Custom</option>
+				</select>
+			</div>
+
+			<div class="form-group mb-4">
+				<label for="encoder">Encoder</label>
+				<textarea class="form-control" id="encoder" placeholder="paste your encoder here" rows="15"></textarea>
+			</div>
+			<div class="form-group mb-2">
+				<label for="hexPayloadOut">Result: Hexadecimal payload</label>
+				<div class="input-group">
+					<input id="hexPayloadOut" type="text" class="form-control" placeholder="Hexadecimal payload" readonly>
+					<button class="btn btn-outline-secondary" type="button" id="CopyHexPayload" onclick="copyText('hexPayloadOut')">Copy</button>
+				</div>
+			</div>
+
+			<div class="form-group mb-4">
+				<label for="base64PayloadOut">Result: Base64 payload</label>
+				<div class="input-group">
+					<input id="base64PayloadOut" type="text" class="form-control" placeholder="Base 64 payload" readonly>
+					<button class="btn btn-outline-secondary" type="button" id="CopyBasePayload" onclick="copyText('base64PayloadOut')">Copy</button>
+				</div>
+			</div>
 		</form>
 	</div>
 </div>

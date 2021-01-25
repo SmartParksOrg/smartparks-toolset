@@ -16,12 +16,8 @@ const runApp = async () => {
   let inputForm = document.getElementById('inputForm');
   inputForm.addEventListener('change', () => {
 
-    /*
-    let base64Value = 'yhmyg55GDwBDPDMjAABpJIhf';
-    let hexString = "ca19b2839e460f00433c332300006924885f";
-     */
-
     let payloadIn = document.getElementById('payloadIn').value;
+    payloadIn = payloadIn.replace(/\s/g, "");
     setTranslatedPayload(payloadIn);
     let hexPayloadArray = hexFromBaseOrHex(payloadIn);
     let hexPayload = hexPayloadArray[0];
@@ -81,16 +77,6 @@ function setTranslatedPayload(payload) {
 function setResultSet(inp) {
   document.getElementById('resultSet').innerHTML = syntaxHighlight(inp);
   document.getElementById('resultSetCopy').value = inp;
-}
-
-function selectPreDefinedPort() {
-  let buttonCount = document.getElementsByClassName('preDefinePort').length;
-  for (let i = 0; i < buttonCount; i++) {
-    document.getElementsByClassName('preDefinePort').item(i).addEventListener('click', () => {
-      document.getElementById('portIn').value = document.getElementsByClassName('preDefinePort').item(i).value;
-      document.getElementById('inputForm').dispatchEvent(new Event('change'));
-    });
-  }
 }
 
 async function setDecoder() {
