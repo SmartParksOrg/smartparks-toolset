@@ -1,6 +1,4 @@
 window.addEventListener('load', () => {
-  // TODO: IMPORT JSON BATTERY PROFILE
-  // TODO: EXPORT JSON BATTERY PROFILE
   let app = runCalculator();
 })
 

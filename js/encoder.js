@@ -55,7 +55,6 @@ function runEncoder(port, json) {
   } catch (err) {
     resultSet = 'Error in encoder : ' + err;
   }
-  //TODO: test this resultset. It could be that this parsing needs to be done within the Function
   return parseBytesArrayToHexString(resultSet);
 }
 
