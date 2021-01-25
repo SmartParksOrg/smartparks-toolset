@@ -2,7 +2,7 @@ const decoderBaseUrl = 'assets/Decoders/';
 let updateDecoder;
 
 window.addEventListener('load', () => {
-  runApp();
+  let app = runApp();
 })
 
 const runApp = async () => {
@@ -16,7 +16,6 @@ const runApp = async () => {
   let inputForm = document.getElementById('inputForm');
   inputForm.addEventListener('change', () => {
 
-
     /*
     let base64Value = 'yhmyg55GDwBDPDMjAABpJIhf';
     let hexString = "ca19b2839e460f00433c332300006924885f";
@@ -29,14 +28,16 @@ const runApp = async () => {
     document.getElementById('payloadInType').innerText = "Recognized type: " + hexPayloadArray[1];
     let portIn = document.getElementById('portIn').value;
 
+    let variables = fetchStringifiedVariablesObject();
+
     setDecoder();
-    let decodedJson = runDecoder(portIn, hexPayload);
+    let decodedJson = runDecoder(portIn, hexPayload, variables);
     let stringifiedJson = JSON.stringify(decodedJson, undefined, 4);
     setResultSet(stringifiedJson);
   });
 }
 
-function runDecoder(port, payload) {
+function runDecoder(port, payload, variables) {
   let decoder = document.getElementById('decoder').value;
 
   if (decoder.length === 0) {
@@ -45,9 +46,10 @@ function runDecoder(port, payload) {
   let resultSet = "Are you sure everything is OK? Your decoder is not defined yet or invalid.";
   try {
     resultSet = Function(
+      "let variables = JSON.parse('" + variables + "');" +
       "let bytes = new Uint8Array(parseHexStringToBytesArray('" + payload + "'));" +
       decoder +
-      "return Decode(" + port + ", bytes );"
+      "return Decode(" + port + ", bytes, variables);"
     )();
   } catch (err) {
     resultSet = 'Error in decoder : ' + err;
@@ -111,4 +113,13 @@ function fillDecoderList(decoderList) {
     option.value = value;
     select.options.add(option);
   }
+}
+
+function fetchStringifiedVariablesObject(){
+  let variablesKey1 = document.getElementById('variables-key-1').value;
+  let variablesValue1 = document.getElementById('variables-value-1').value;
+  let variables = {
+    [variablesKey1] : variablesValue1,
+  };
+  return JSON.stringify(variables);
 }

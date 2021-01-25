@@ -2,18 +2,18 @@
 Returns: Parsed Json loaded from URL
  */
 function loadJSON(url) {
-	return new Promise((resolve) => {
-		const xObj = new XMLHttpRequest();
-		xObj.overrideMimeType("application/json");
-		xObj.open('GET', url, true);
-		xObj.onreadystatechange = function () {
-			if (xObj.readyState === 4 && xObj.status === 200) {
-				// Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-				resolve(JSON.parse(xObj.responseText));
-			}
-		};
-		xObj.send(null);
-	});
+  return new Promise((resolve) => {
+    const xObj = new XMLHttpRequest();
+    xObj.overrideMimeType("application/json");
+    xObj.open('GET', url, true);
+    xObj.onreadystatechange = function () {
+      if (xObj.readyState === 4 && xObj.status === 200) {
+        // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+        resolve(JSON.parse(xObj.responseText));
+      }
+    };
+    xObj.send(null);
+  });
 }
 
 /*
