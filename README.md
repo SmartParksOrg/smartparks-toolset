@@ -7,15 +7,14 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/SmartParksOrg/node-red-contrib-earthranger">
-    <img src="src/img/smp-logo-ret.jpg" alt="Logo" width="265" height="150"/>
+  <a href="https://github.com/SmartParksOrg/smartparks-toolset">
+    <img src="assets/img/smp-logo-ret.jpg" alt="Logo" width="265" height="150"/>
   </a>
 
   <h3 align="center">Smart Parks Toolset</h3>
 
   <p align="center">
     This toolset contains 3 tools in wich you can get better insights in the sensors of Smart Parks.
-
     <br />
     <a href="https://github.com/SmartParks/smartparks-toolset"><strong>Explore the docs »</strong></a>
     <br />
@@ -33,8 +32,6 @@
 ## Table of Contents
 
 - [About the Project](#about-the-project)
-- [Usage](#usage)
-- [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [License](#license)
 - [Authors](#authors)
@@ -79,14 +76,13 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/SmartParks/smartparks-toolset.svg?style=flat-square
-[contributors-url]: https://github.com/SmartParks/smartparks-toolset/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/SmartParks/smartparks-toolset.svg?style=flat-square
-[forks-url]: https://github.com/SmartParks/smartparks-toolset/network/members
-[stars-shield]: https://img.shields.io/github/stars/SmartParks/smartparks-toolset.svg?style=flat-square
-[stars-url]: https://github.com/SmartParks/smartparks-toolset/stargazers
-[issues-shield]: https://img.shields.io/github/issues/SmartParks/smartparks-toolset.svg?style=flat-square
-[issues-url]: https://github.com/SmartParks/smartparks-toolset/issues
-[license-shield]: https://img.shields.io/github/license/SmartParks/smartparks-toolset.svg?style=flat-square
-[license-url]: https://github.com/aSmartParks/smartparks-toolset/blob/main/LICENSE
-[product-screenshot]: src/img/screenshot.png
+[contributors-shield]: https://img.shields.io/github/contributors/SmartParksOrg/smartparks-toolset.svg?style=flat-square
+[contributors-url]: https://github.com/SmartParksOrg/smartparks-toolset/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/SmartParksOrg/smartparks-toolset.svg?style=flat-square
+[forks-url]: https://github.com/SmartParksOrg/smartparks-toolset/network/members
+[stars-shield]: https://img.shields.io/github/stars/SmartParksOrg/smartparks-toolset.svg?style=flat-square
+[stars-url]: https://github.com/SmartParksOrg/smartparks-toolset/stargazers
+[issues-shield]: https://img.shields.io/github/issues/SmartParksOrg/smartparks-toolset.svg?style=flat-square
+[issues-url]: https://github.com/SmartParksOrg/smartparks-toolset/issues
+[license-shield]: https://img.shields.io/github/license/SmartParksOrg/smartparks-toolset.svg?style=flat-square
+[license-url]: https://github.com/SmartParksOrg/smartparks-toolset/blob/main/LICENSE
