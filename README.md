@@ -8,7 +8,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/SmartParksOrg/smartparks-toolset">
-    <img src="assets/img/smp-logo-ret.jpg" alt="Logo" width="265" height="150"/>
+    <img src="assets/Img/smp-logo-ret.jpg" alt="Logo" width="265" height="150"/>
   </a>
 
   <h3 align="center">Smart Parks Toolset</h3>
