@@ -40,13 +40,13 @@
 
 ## About The Project
 
-###Sensor Battery Calculator
+### Sensor Battery Calculator
 This tool can be used to estimate the power consumption and battery life for our OpenCollar sensors. Please be aware that this is a model and can only be used as guidance for finding the most optimal settings and deployment strategies. In doubt, please consult Smart Parks directly.
 
-###Decoder app
+### Decoder app
 This tool can be used to decode LoRaWAN payloads in HEX and BASE64 format. We have also provided some default decoders. Please be aware that this is a tool for debugging only. In doubt, please consult Smart Parks directly.
 
-###Encoder app
+### Encoder app
 This tool can be used to encode a JSON file into a LoRaWAN payloads in HEX and BASE64 format. We have also provided some default encoders. Please be aware that this is a tool for debugging only. In doubt, please consult Smart Parks directly.
 
 <!-- CONTRIBUTING -->
