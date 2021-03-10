@@ -33,5 +33,12 @@
         "batteryRechargeable": false,
         "batteryCapacity": 3600,
         "batteryCount": 6
+    },
+    "sp_w_01": {
+        "sensorName": "Wisent Tracker",
+        "batteryType": "LS17500",
+        "batteryRechargeable": false,
+        "batteryCapacity": 3600,
+        "batteryCount": 5
     }
 }
