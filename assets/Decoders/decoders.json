@@ -1,12 +1,11 @@
 {
+    "OpenCollar Edge v2": "d_opencollar_Edge_v2.js",
     "OpenCollar (v3)": "d_opencollar_v3.js",
     "OpenCollar Tracker (v1)": "d_opencollar_tracker_v1.js",
     "OpenCollar fence (v2)": "d_opencollar_fence_v2.js",
-    "OpenCollar fence (v3)": "d_opencollar_fence_v3.js",
     "OpenCollar Lion Tracker (legacy)": "d_opencollar_lion_tracker_legacy.js",
     "OpenCollar Rhino Tracker (legacy)": "d_opencollar_rhino_tracker_legacy.js",
     "OpenCollar Rhino Edge (v0.1)": "d_opencollar_rhinoedge_v0_1.js",
-    "OpenCollar Edge v2": "d_opencollar_Edge_v2.js",
     "Smart Parks VE.Direct (v1)": "d_sp_ve-direct_v1.js",
     "Dragino LGT 92 (v1)": "d_dragino_lgt92_v1.js",
     "ESP32 paxcounter (v1)": "d_esp32_paxcounter_v1.js",
