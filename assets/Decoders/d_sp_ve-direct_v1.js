@@ -172,7 +172,7 @@ function DecodePayload(data) {
 		i += 2; // shifting an extra 2 bytes to take into account Voltage reading if needed
 		var V = (data[i + 1] << 8) | (data[i + 2]);
 		obj.V = V;
-        i += 2;ac
+        i += 2;
 	    break
 	  case TYPE_START: // Start of partial payload
 		if ((data[i + 1]) === 0xCC) {
