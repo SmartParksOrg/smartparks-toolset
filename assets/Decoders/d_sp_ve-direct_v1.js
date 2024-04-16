@@ -92,7 +92,7 @@ var CS_dict = {
     1: "LOW POWER",
     2: "FAULT",
     3: "BULK",
-    4: "ABSOPTION",
+    4: "ABSORPTION",
     5: "FLOAT",
     9: "INVERTING"
   };
