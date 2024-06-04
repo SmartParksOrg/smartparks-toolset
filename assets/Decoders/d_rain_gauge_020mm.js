@@ -126,7 +126,7 @@ function DecodeElsysPayload(data) {
         //Smart Parks Rain Gauge Add_on
         obj.bucket_flops = pulse1Raw;
         pulse1Raw = bin16dec(pulse1Raw);
-        obj.percipitation_mm = pulse1Raw * 0, 2; //change resolution if needed
+        obj.percipitation_mm = pulse1Raw * 0.2; //change resolution if needed
         i += 2;
         break
       case TYPE_PULSE1_ABS: //Pulse input 1 absolute value
