@@ -475,7 +475,7 @@ function decodeBluetoothCMDQMessage(bytes) {
         var h_impedance = uint16(bytes[offset + 12], bytes[offset + 11]); 
         decoded[i]= {
             cmdq_timestamp: measurement_timestamp,
-            cmdq_rr_median: rr_meridian,
+            cmdq_rr_median: rr_median,
             cmdq_rr_median_modesum: rr_median_modesum,
             cmdq_activity_average: activity_average,
             cmdq_activity_max: activity_max,
